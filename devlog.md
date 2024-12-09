@@ -1,3 +1,13 @@
+#Entry 5 - 12/8/2024 - 7:50 PM
+My Thoughts? 
+The insert command seems to need a maintenance of sorted keys whereas the search command needs an efficient lookup of the keys. Both these commands work within one root.
+Plan:
+My plan is to implement the insert command for adding the key-value pairs to the root node. Oncve this is done, I will sort the keys post insertion to maintain the order and add in some more logic for handling the splitting of the nodes. After this, I will add the search command to find a key in the root node and print the necessary value. This will show the messages for cases that are found and not found properly.
+Reflection:
+I completed the insert command for the nodes that are noot full. The keys and values are sorted properly after the insertion. Once this is done,  I added a proper search command for finding the keys in the root node. Then, I tested both the commands with proper and improper inputs and they function properly.
+What's Next?
+I am going to make the print_index command to show all of the key-value pairs that are in the main node.
+
 #Entry 4 - 12/8/2024 - 7:11 PM
 My Thoughts?
 The process of opening the files can add a little bit more complexity to this process. I've come to the thought that I need to acccount for handling ererors in the headers that are not valid so that there are no potential crashes in the program.
