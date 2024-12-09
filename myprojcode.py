@@ -76,3 +76,23 @@ class BTreeHeader:
         header.root_id = from_bytes(data[8:16])
         header.next_block_id = from_bytes(data[16:24])
         return header
+
+# Index File Manager
+class IndexFile:
+    def __init__(self):
+        self.file = None
+        self.header = None
+
+    def create(self, filename):
+        if os.path.exists(filename):
+            overwrite = input("File exists. Overwrite? (y/n): ").strip().lower()
+            if overwrite != "y":
+                print("Aborted.")
+                return
+        self.file = open(filename, "wb+")
+        self.header = BTreeHeader()
+        self.file.write(self.header.serialize())
+        # Create an empty root node
+        root = BTreeNode(block_id=1)
+        self.file.write(root.serialize())
+        print(f"Created index file: {filename}")
