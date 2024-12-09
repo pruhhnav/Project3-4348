@@ -109,3 +109,46 @@ class IndexFile:
         except ValueError as e:
             print(f"Error opening file: {e}")
             self.file = None
+
+    def insert(self, key, value):
+        if self.file is None:
+            print("No file open.")
+            return
+
+        # Load the root node
+        self.file.seek(SIZEOF_BLOCK)  # Assuming root node is at block 1
+        root_data = self.file.read(SIZEOF_BLOCK)
+        root = BTreeNode.deserialize(root_data)
+
+        # Check if there's room to insert the key
+        if root.num_keys < MAXIMUM_KEYS:
+            root.keys[root.num_keys] = key
+            root.values[root.num_keys] = value
+            root.num_keys += 1
+            # Sort keys and values
+            sorted_pairs = sorted(zip(root.keys[:root.num_keys], root.values[:root.num_keys]))
+            root.keys[:root.num_keys], root.values[:root.num_keys] = zip(*sorted_pairs)
+
+            # Write back the updated root node
+            self.file.seek(SIZEOF_BLOCK)  # Assuming root node is at block 1
+            self.file.write(root.serialize())
+            print(f"Inserted key={key}, value={value}")
+        else:
+            print("Node is full. Splitting not yet implemented.")
+
+    def search(self, key):
+        if self.file is None:
+            print("No file open.")
+            return
+
+        # Load the root node
+        self.file.seek(SIZEOF_BLOCK)  # Assuming root node is at block 1
+        root_data = self.file.read(SIZEOF_BLOCK)
+        root = BTreeNode.deserialize(root_data)
+
+        # Search for the key in the root node
+        for i in range(root.num_keys):
+            if root.keys[i] == key:
+                print(f"Key={key}, Value={root.values[i]}")
+                return
+        print("Key not found.")
