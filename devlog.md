@@ -1,3 +1,13 @@
+#Entry 6 - 12/8/2024 - 8:33 PM
+My Thoughts?
+I think that the print_index command will help show the B-tree and the load command will show the huge insertion of the key-value pairs from the file. These commands can help make the system more useful and UI friendly.
+Plan:
+My plan is to establish the print_index command to show all of the key value pairs in the root node. Once this is done, I want to make the load command read the key-value pairs from any file and put them in a B-tree. After this, I want to make sure ifthere are invalid lines in the input, they will be shown error messages. These are tested both commands with multiple situations which includes different nodes and input files.
+Reflection:
+I was able to properly implement the print_index command to show the key-value pairs in a way that is formatted properly. I was also able to make the load command combine with the insert command which allows for a proper insertion while skipping lines that are not valid. 
+What's Next?
+Now, I am planning to make the extract command to save the key-value pairs to a file.
+
 #Entry 5 - 12/8/2024 - 7:50 PM
 My Thoughts? 
 The insert command seems to need a maintenance of sorted keys whereas the search command needs an efficient lookup of the keys. Both these commands work within one root.
