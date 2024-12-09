@@ -152,3 +152,33 @@ class IndexFile:
                 print(f"Key={key}, Value={root.values[i]}")
                 return
         print("Key not found.")
+
+    def print_index(self):
+        if self.file is None:
+            print("No file open.")
+            return
+
+        # Load the root node
+        self.file.seek(SIZEOF_BLOCK)  # Assuming root node is at block 1
+        root_data = self.file.read(SIZEOF_BLOCK)
+        root = BTreeNode.deserialize(root_data)
+
+        # Print all keys and values in the root node
+        for i in range(root.num_keys):
+            print(f"Key={root.keys[i]}, Value={root.values[i]}")
+
+    def load(self, filename):
+        if self.file is None:
+            print("No file open.")
+            return
+        if not os.path.exists(filename):
+            print("File does not exist.")
+            return
+
+        with open(filename, "r") as f:
+            for line in f:
+                try:
+                    key, value = map(int, line.strip().split(","))
+                    self.insert(key, value)
+                except ValueError:
+                    print(f"Invalid line in file: {line.strip()}")
