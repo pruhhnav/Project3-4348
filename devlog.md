@@ -1,4 +1,16 @@
-#12/8/2024 - 5:52 PM
+#Entry 3 - 12/8/2024 - 6:32 PM
+My Thoughts?
+The create option is very important for making the whole index. I now know I have to finish up the create command handle it very carefully to avoid any loss of data like I mentioned earlier.
+Plan:
+My plan is to make the create function to initalize the new index file. I also want to write the header with a root ID, magic number, and block ID. Once this is done, I want to create a root node that is empty after the header.
+Reflection:
+I was able to properly implement the create menu option and made sure to test the creation of this with multiple headers. On top of this, the program is able to support the creation of an index file now. 
+What's Next?
+I want to implement the open command now. This will allow it to open and load the files.
+
+
+
+#Entry 2 - 12/8/2024 - 5:52 PM
 My Thoughts?
 Serialization is not too hard but it is a little challenging since there are constraints of managing the padding and offsets. This is a very important step for the integrity of the file.
 Plan:
@@ -10,7 +22,7 @@ I was able to implement and test the serialization and deserialization for the h
 What Next?
 I am going to start making the create command for intializing the index.
 
-#12/8/2024 - 5:14 PM
+#Entry 1 - 12/8/2024 - 5:14 PM
 My Thoughts?
 I am creating the project and laying the basic structure of the B-tree. There is nothing too problematic up to this point, but I want to make sure the constants and helper functions are properly set up for serialization.
 Plan:
@@ -19,7 +31,7 @@ Reflection:
 I set up the constants and helper functions and then implemented the base structure. This was not too bad. I am now going to add serialization and the deserialization logic end of things to the BTreeHeader and the BTreeNode.
 
 
-#12/8/2024 - 4:30 PM
+#Initial Entry - 12/8/2024 - 4:30 PM
 What I know?
 This B-tree project wants me to make a program with a menu to handle index files using B-tree structure.
 Plan?
