@@ -1,3 +1,13 @@
+#Entry 7 - 12/8/2024 - 9:55 PM
+My Thoughts?
+The extract command is properly set up and has been tested. I made sure to do some final testing and cleaning of the code to make sure all of the commands are integerated together properly. Comments and refinind the logic can make the code easier to maintain.
+Plan:
+I am going to properly finalize the extract option so it can save the key value pairs to a file. Then, this will perform testing of all the commands that were listed. I am also going to fix all the bugs I have not yet figured out, add comments, and implement the main function to tie everything together.
+Reflection:
+I have properly tested all commands and they are successfull. I fixed small issues that are related to the duplicate key handling in the insert command. I've also added more comments to explain thinking. I believe I am finished with the project.
+What's Next?
+I have finished.
+
 #Entry 6 - 12/8/2024 - 8:33 PM
 My Thoughts?
 I think that the print_index command will help show the B-tree and the load command will show the huge insertion of the key-value pairs from the file. These commands can help make the system more useful and UI friendly.
