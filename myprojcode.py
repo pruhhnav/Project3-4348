@@ -96,3 +96,16 @@ class IndexFile:
         root = BTreeNode(block_id=1)
         self.file.write(root.serialize())
         print(f"Created index file: {filename}")
+
+    def open(self, filename):
+        if not os.path.exists(filename):
+            print("File does not exist.")
+            return
+        self.file = open(filename, "rb+")
+        data = self.file.read(SIZEOF_BLOCK)
+        try:
+            self.header = BTreeHeader.deserialize(data)
+            print(f"Opened index file: {filename}")
+        except ValueError as e:
+            print(f"Error opening file: {e}")
+            self.file = None
