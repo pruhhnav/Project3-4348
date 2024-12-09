@@ -134,7 +134,7 @@ class IndexFile:
             self.file.write(root.serialize())
             print(f"Inserted key={key}, value={value}")
         else:
-            print("Node is full. Splitting not yet implemented.")
+            print("Node is full. Splitting not yet implemented.")  # Handle splitting later
 
     def search(self, key):
         if self.file is None:
@@ -153,20 +153,6 @@ class IndexFile:
                 return
         print("Key not found.")
 
-    def print_index(self):
-        if self.file is None:
-            print("No file open.")
-            return
-
-        # Load the root node
-        self.file.seek(SIZEOF_BLOCK)  # Assuming root node is at block 1
-        root_data = self.file.read(SIZEOF_BLOCK)
-        root = BTreeNode.deserialize(root_data)
-
-        # Print all keys and values in the root node
-        for i in range(root.num_keys):
-            print(f"Key={root.keys[i]}, Value={root.values[i]}")
-
     def load(self, filename):
         if self.file is None:
             print("No file open.")
@@ -174,7 +160,6 @@ class IndexFile:
         if not os.path.exists(filename):
             print("File does not exist.")
             return
-
         with open(filename, "r") as f:
             for line in f:
                 try:
@@ -182,3 +167,80 @@ class IndexFile:
                     self.insert(key, value)
                 except ValueError:
                     print(f"Invalid line in file: {line.strip()}")
+        print(f"Loaded data from {filename}")
+
+    def print_index(self):
+        if self.file is None:
+            print("No file open.")
+            return
+        self.file.seek(SIZEOF_BLOCK)
+        root_data = self.file.read(SIZEOF_BLOCK)
+        root = BTreeNode.deserialize(root_data)
+        print("Index contents:")
+        for i in range(root.num_keys):
+            print(f"Key={root.keys[i]}, Value={root.values[i]}")
+
+    def extract(self, filename):
+        if self.file is None:
+            print("No file open.")
+            return
+        if os.path.exists(filename):
+            overwrite = input("File exists. Overwrite? (y/n): ").strip().lower()
+            if overwrite != "y":
+                print("Aborted.")
+                return
+        self.file.seek(SIZEOF_BLOCK)
+        root_data = self.file.read(SIZEOF_BLOCK)
+        root = BTreeNode.deserialize(root_data)
+        with open(filename, "w") as f:
+            for i in range(root.num_keys):
+                f.write(f"{root.keys[i]},{root.values[i]}\n")
+        print(f"Extracted key-value pairs to {filename}")
+
+    def close(self):
+        if self.file:
+            self.file.close()
+            self.file = None
+
+# Main Menu
+def main():
+    index_file = IndexFile()
+    while True:
+        print("\nCommands: create, open, insert, search, load, print, extract, quit")
+        command = input("Enter command: ").strip().lower()
+        if command == "create":
+            filename = input("Enter file name: ").strip()
+            index_file.create(filename)
+        elif command == "open":
+            filename = input("Enter file name: ").strip()
+            index_file.open(filename)
+        elif command == "insert":
+            try:
+                key = int(input("Enter key: "))
+                value = int(input("Enter value: "))
+                index_file.insert(key, value)
+            except ValueError:
+                print("Invalid input. Key and value must be integers.")
+        elif command == "search":
+            try:
+                key = int(input("Enter key: "))
+                index_file.search(key)
+            except ValueError:
+                print("Invalid input. Key must be an integer.")
+        elif command == "load":
+            filename = input("Enter file name to load from: ").strip()
+            index_file.load(filename)
+        elif command == "print":
+            index_file.print_index()
+        elif command == "extract":
+            filename = input("Enter file name to extract to: ").strip()
+            index_file.extract(filename)
+        elif command == "quit":
+            index_file.close()
+            print("Goodbye!")
+            break
+        else:
+            print("Unknown command.")
+
+if __name__ == "__main__":
+    main()
