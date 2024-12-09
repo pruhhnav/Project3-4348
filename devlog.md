@@ -1,3 +1,13 @@
+#Entry 4 - 12/8/2024 - 7:11 PM
+My Thoughts?
+The process of opening the files can add a little bit more complexity to this process. I've come to the thought that I need to acccount for handling ererors in the headers that are not valid so that there are no potential crashes in the program.
+Plan:
+My plan is to add the open function to process and load in the index files that are already existing. Once this is done, I will validate this number and make sure that the header is properly formatted. I am going to try to handle the cases in which the files have gotten corrupted.
+Reflection:
+I was able to implement the open menu command and also tested it multiple times with files that are valid and invalid. The validation works and the errors are shown for headers which are not right. Once this is done, the program can load index files that were made before.
+What's Next?
+I want to make the insert command for making the key-value pairs to the B-tree. 
+
 #Entry 3 - 12/8/2024 - 6:32 PM
 My Thoughts?
 The create option is very important for making the whole index. I now know I have to finish up the create command handle it very carefully to avoid any loss of data like I mentioned earlier.
